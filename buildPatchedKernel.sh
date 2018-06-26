@@ -1,6 +1,6 @@
 #!/bin/bash
 # Patch the kernel for the Intel Realsense library librealsense on a Jetson TX Development Kit
-# Copyright (c) 2016-18 Jetsonhacks 
+# Copyright (c) 2016-18 Jetsonhacks
 # MIT License
 
 # Error out if something goes wrong
@@ -40,7 +40,7 @@ echo "$JETSON_DESCRIPTION"
 echo "Jetpack $JETSON_JETPACK [L4T $JETSON_L4T]"
 
 # Check to make sure we're installing the correct kernel sources
-L4TTarget="28.2"
+L4TTarget="28.2.1"
 if [ $JETSON_L4T != $L4TTarget ] ; then
 #   echo "Getting kernel sources"
    # sudo ./scripts/getKernelSources.sh
@@ -50,7 +50,7 @@ if [ $JETSON_L4T != $L4TTarget ] ; then
    echo "==== L4T Kernel Version Mismatch! ============="
    tput sgr0
    echo ""
-   echo "This repository is for modifying the kernel for L4T "$L4TTarget "system." 
+   echo "This repository is for modifying the kernel for L4T "$L4TTarget "system."
    echo "You are attempting to modify a L4T "$JETSON_L4T "system."
    echo "The L4T releases must match!"
    echo ""
@@ -77,7 +77,7 @@ if [ ! -d "$LIBREALSENSE_DIRECTORY" ] ; then
          git checkout $LIBREALSENSE_VERSION
      ;;
      * )
-         echo "Kernel patch and build not started"   
+         echo "Kernel patch and build not started"
          exit 1
      ;;
    esac
@@ -103,17 +103,16 @@ fi
 KERNEL_BUILD_DIR=""
 cd $INSTALL_DIR
 echo "Ready to patch and build kernel "$JETSON_BOARD
-if [ $JETSON_BOARD == "TX2" ] ; then 
-  git clone https://github.com/jetsonhacks/buildJetsonTX2Kernel.git
+if [ $JETSON_BOARD == "TX2" ] ; then
+  git clone https://github.com/Shreeyak/buildJetsonTX2Kernel.git
   KERNEL_BUILD_DIR=buildJetsonTX2Kernel
   cd $KERNEL_BUILD_DIR
-  git checkout vL4T28.2r3
 elif [ $JETSON_BOARD == "TX1" ] ; then
     git clone https://github.com/jetsonhacks/buildJetsonTX1Kernel.git
     KERNEL_BUILD_DIR=buildJetsonTX1Kernel
     cd $KERNEL_BUILD_DIR
     git checkout v1.0-L4T28.2
-  else 
+  else
     tput setaf 1
     echo "==== Build Issue! ============="
     tput sgr0
